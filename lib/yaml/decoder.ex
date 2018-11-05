@@ -1,0 +1,33 @@
+defmodule YAML.Decoder do
+  @yamerl_opts [:str_node_as_binary, :detailed_constr]
+
+
+  def decode!(binary) do
+    binary
+    |> :yamerl_constr.string(@yamerl_opts)
+    |> isolate()
+    |> normalize()
+  end
+
+
+  defp isolate([term]), do: isolate(term)
+  defp isolate(term),   do: term
+
+
+  defp normalize({:yamerl_seq, _, _, _, list, _count}) do
+    Enum.map(list, &normalize/1)
+  end
+
+  defp normalize({:yamerl_map, _, _, _, list}) do
+    Map.new(list, fn {key, value} ->
+      {normalize(key), normalize(value)}
+    end)
+  end
+
+  defp normalize({:yamerl_doc, document}),            do: normalize(document)
+  defp normalize({:yamerl_null, _, _, _}),            do: nil
+  defp normalize({:yamerl_str, _, _, _, value}),      do: value
+  defp normalize({:yamerl_int, _, _, _, value}),      do: value
+  defp normalize({_type, _data, _tag, _meta, value}), do: value
+
+end
