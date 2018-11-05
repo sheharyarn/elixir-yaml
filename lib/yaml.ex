@@ -3,7 +3,7 @@ defmodule YAML do
   Documentation for YAML.
   """
 
-  def parse!(binary) do
-    YAML.Decoder.decode!(binary)
+  def decode!(binary) do
+    YAML.Parser.parse!(binary)
   end
 end

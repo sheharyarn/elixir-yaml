@@ -1,9 +1,9 @@
-defmodule YAML.Decoder do
+defmodule YAML.Parser do
   @yamerl_opts [:str_node_as_binary, :detailed_constr]
 
 
-  def decode!(binary) do
-    binary
+  def parse!(string) when is_binary(string) do
+    string
     |> :yamerl_constr.string(@yamerl_opts)
     |> isolate()
     |> normalize()
