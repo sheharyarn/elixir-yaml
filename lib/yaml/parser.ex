@@ -24,8 +24,9 @@ defmodule YAML.Parser do
     end)
   end
 
-  defp normalize({:yamerl_doc, document}),            do: normalize(document)
+  defp normalize([]),                                 do: nil
   defp normalize({:yamerl_null, _, _, _}),            do: nil
+  defp normalize({:yamerl_doc, document}),            do: normalize(document)
   defp normalize({:yamerl_str, _, _, _, value}),      do: value
   defp normalize({:yamerl_int, _, _, _, value}),      do: value
   defp normalize({_type, _data, _tag, _meta, value}), do: value
