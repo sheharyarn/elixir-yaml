@@ -64,7 +64,7 @@ defmodule YAML.MixProject do
 
   # Package Description
   defp description do
-    "Simple & Powerful Elixir wrapper for the Mnesia Database"
+    "YAML Parsing and Encoding in Elixir"
   end
 
 
