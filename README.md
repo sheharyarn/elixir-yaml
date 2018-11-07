@@ -6,4 +6,6 @@ YAML
  - Encoder
  - Streaming
  - Tests
+ - Travis + InchCI
+ - Logo
 
